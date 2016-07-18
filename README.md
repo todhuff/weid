@@ -26,5 +26,6 @@ By hand, for now.
 Use the source, Luke!
 
 ## Issues
-If you have any issues, please log them at https://github.com/todhuff/weid/issues 
+If you have any issues, please log them at https://github.com/todhuff/weid/issues
+
 Check the wiki for additional help / info - https://github.com/todhuff/weid/wiki
