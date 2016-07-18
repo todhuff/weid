@@ -5,7 +5,7 @@ A simple program to display security cameras, written in python.
 Python 2.x, python-configobj, fonts-droid, other stuff.
 
 ## Overview
-Coeptum is a relatively simple program to display IP cameras.
+Weid is a relatively simple program to display IP cameras.
 It was written to run on a Raspberry Pi driving an HDMI monitor.
 
 I couldn't find anything to do what I wanted, so I wrote it myself.
