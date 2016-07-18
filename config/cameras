@@ -1,0 +1,51 @@
+[Active]
+Cameras = 'MNDOT C650', 'MNDOT C055', 'MNDOT C054', 'MN Power Duluth LakeCam',
+
+[MNDOT C055]
+# MN Department of Transportation
+URL = 'http://video.dot.state.mn.us/video/image/metro/C055.jpg'
+Authentication = False
+Username = ''
+Password = ''
+X_Position = 630
+Y_Position = 180
+Scaled = False
+X_Scale = 0
+Y_Scale = 0
+
+[MNDOT C650]
+# MN Department of Transportation
+URL = 'http://video.dot.state.mn.us/video/image/metro/C650.jpg'
+Authentication = False
+Username = ''
+Password = ''
+X_Position = 1024
+Y_Position = 180
+Scaled = False
+X_Scale = 0
+Y_Scale = 0
+
+[MNDOT C054]
+# MN Department of Transportation
+URL = 'http://video.dot.state.mn.us/video/image/metro/C054.jpg'
+Authentication = False
+Username = ''
+Password = ''
+X_Position = 240
+Y_Position = 180
+Scaled = False
+X_Scale = 0
+Y_Scale = 0
+
+[MN Power Duluth LakeCam]
+#Minnesota Power hosts this cam
+# A webcam with Width = 509 and Height = 382
+URL='http://134.156.98.1/lakecam/lakepic/mnpower.jpg'
+Authentication = False
+Username = ''
+Password = ''
+X_Position = 630
+Y_Position = 540
+Scaled = True
+X_Scale = 320
+Y_Scale = 240

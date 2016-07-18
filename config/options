@@ -1,0 +1,17 @@
+[Time]
+Format = "%a, %b %d, %Y - %I:%M %p"
+Font = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
+Font_Size = 36
+X_Position = 20
+Y_Position = 720
+Colour = 200, 200, 200
+Enabled = True
+
+[Tagline]
+Format = "Coeptum - Room 101 Software"
+Font = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
+Font_Size = 8
+X_Position = 1
+Y_Position = 1
+Colour = 35, 35, 35
+Enabled = True

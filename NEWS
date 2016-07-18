@@ -1,0 +1,17 @@
+Changelog:
+
+0.1 First working version
+0.2 Added date / time display
+0.3 Make sure we don't crash due to network issues. / Convert to urllib2
+0.4 Generalized URLs, can now specify URL per camera.
+0.5 Added basic HTTP authentication, for passworded cameras.
+0.6 Configuration files are now located in /etc/weid/ and named 'options'
+    and 'cameras'. Sample config files are included, and need to be copied
+    over manually.
+0.7 Added some open web cameras to the config for testing. Added image
+    scaling. ConfigObj boolean values elude me, so I added a str2bool()
+    function to convert values from the config to actual bools.
+    Now handles multiple camera types.
+0.8 Simple camera layout has been partially implimented.
+0.9 Multiprocessing is now functional. Current version uses shared
+    namespaces, am considering rewriting to use pipes.
