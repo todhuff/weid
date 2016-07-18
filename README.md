@@ -14,8 +14,10 @@ The code is ugly. I didn't know python when I started, but pygame looked
 like it had (almost) everything I needed, so I ran with it. This is the result.
 
 When the program runs directly from the console (without X), it needs to
-be run as root. Running under X requires no special permissions, though you
-will need at least read access to /etc/weid/ (and any files in there).
+be run as root.
+
+Running under X requires no special permissions, though you
+will need at least read access to /etc/weid/ (and any files therein).
 
 ## Installation
 By hand, for now.
@@ -25,5 +27,4 @@ Use the source, Luke!
 
 ## Issues
 If you have any issues, please log them at https://github.com/todhuff/weid/issues 
-
-There will be additional help pages on the wiki - https://github.com/todhuff/weid/wiki
+Check the wiki for additional help / info - https://github.com/todhuff/weid/wiki
