@@ -29,3 +29,6 @@ Use the source, Luke!
 If you have any issues, please log them at https://github.com/todhuff/weid/issues
 
 Check the wiki for additional help / info - https://github.com/todhuff/weid/wiki
+
+## Pronunciation, origin, meaning, etc.
+Pronounced "W-ay-d". Weid is ancient Greek for "to know / to see".
