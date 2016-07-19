@@ -2,8 +2,12 @@
 A simple program to display security cameras, written in python.
 
 ## Depends:
-Python 2.x, python-configobj, fonts-droid, other stuff.
+Python 2.x, python-configobj, fonts-droid.
 
+On the Pi, you can do this:
+```
+sudo aptitude install python-configobj fonts-droid 
+```
 ## Overview
 Weid is a relatively simple program to display IP cameras.
 It was written to run on a Raspberry Pi driving an HDMI monitor.
