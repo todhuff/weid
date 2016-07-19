@@ -25,13 +25,13 @@ By hand, for now.
 Personally, I have the Raspberry Pis that I use for monitoring set up to
 auto-login the user 'pi' to the console, and append the following to 
 /home/pi/.profile :
-
+```
 cd
 git clone http://github.com/todhuff/weid.git >/dev/null 2>&1
 cd weid
 git pull >/dev/null 2>&1
 ./weid.py
-
+```
 That will make an initial clone (that will fail to run properly, since you
 will need to copy the files in 'config' to /etc/weid/), and will update
 to the latest version on every reboot. This may not be optimal in all
