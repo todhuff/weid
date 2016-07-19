@@ -34,7 +34,7 @@ cd
 git clone http://github.com/todhuff/weid.git >/dev/null 2>&1
 cd weid
 git pull >/dev/null 2>&1
-./weid.py
+sudo ./weid.py
 ```
 That will make an initial clone (that will fail to run properly, since you
 will need to copy the files in 'config' to /etc/weid/), and will update
