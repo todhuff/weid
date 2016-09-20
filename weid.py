@@ -7,8 +7,6 @@
 # class, object, etc. is from sight. You'll thank me later.
 import pygame, urllib2, StringIO, sys, os, datetime, base64, configobj, multiprocessing, time
 
-time_passed = 0 #Placeholder for now
-
 def str2bool(i):
   return i.lower() in ("yes", "true", "t", "y", "1")
 
@@ -17,7 +15,8 @@ class Camera(pygame.sprite.Sprite):
   def __init__(
         self, screen, img_filename,
         username, password, authentication,
-        scale, scale_x, scale_y, pos_x, pos_y ):
+        scale, scale_x, scale_y, pos_x, pos_y,
+        enabled, sleep, show_errors ):
     """ Create a new Camera object.
 
          screen:
@@ -31,8 +30,8 @@ class Camera(pygame.sprite.Sprite):
     self.img_filename = img_filename
     self.password = password
     self.username = username
-    self.authentication = bool(authentication)
-    self.image = pygame.image.load('/etc/weid/oops.png')
+    self.authentication = authentication
+    self.image = pygame.image.load(error_image)
     self.image = self.image.convert()
     self.scale = scale
     self.scale_x = scale_x
@@ -41,23 +40,26 @@ class Camera(pygame.sprite.Sprite):
     self.oldimage = ''
     self.pos_x = pos_x
     self.pos_y = pos_y
-
-  def update(self, counter, time_passed, f):
+    self.enabled = enabled
+    self.sleep = sleep
+    self.show_errors = show_errors
+    
+  def update(self, counter, f):
     """ Update the camera.
-        time_passed:
-          The time passed (in ms) since the previous update.
     """
-    #self.oldimage = self.image
+    self.oldimage = self.image
     try:
       self.image = pygame.image.load(f[counter])
     except pygame.error, message:
-      print ("Pygame Error: Cannot load image: %d" % counter)
-      #print ("Resource: {0}".format(self.img_filename))
+      print ("Pygame Error: Cannot load image: Camera %d" % counter)
+      print ("Resource: {0}".format(self.img_filename))
       #print ("Username: {0}".format(self.username))
       #print ("Password: {0}".format(self.password))
       #print (" ")
-      self.image = pygame.image.load('/etc/weid/oops.png')
-      #self.image = self.oldimage
+      if self.show_errors:
+        self.image = pygame.image.load(error_image)
+      else:
+        self.image = self.oldimage
 
     if self.scale:
       self.image = pygame.transform.scale(self.image, (self.scale_x, self.scale_y))
@@ -74,49 +76,48 @@ class Camera(pygame.sprite.Sprite):
         self.pos_y = bounds_rect.bottom
 
   def loadimage(self,i):
-    #f = pygame.image.load('/etc/weid/oops.png')
     try:
+      f = self.image
       #print ("URL = %s" % self.img_filename)
       request = urllib2.Request(self.img_filename)
       if self.authentication:
         base64string = base64.encodestring('%s:%s' % (self.username, self.password)).replace('\n', '')
         request.add_header("Authorization", "Basic %s" % base64string)
-        #print "Authentication for", self.img_filename
     except:
       print (" ")
       print ("Unknown error setting up request")
       print ("Resource: {0}".format(self.img_filename))
       print ("Username: {0}".format(self.username))
-      #print ("Password: {0}".format(self.password))
       print ("Password: (Hidden)")
       print (" ")
-      f = pygame.image.load('/etc/weid/oops.png')
+      if self.show_errors:
+        f = pygame.image.load(error_image)
     try:
       f = StringIO.StringIO(urllib2.urlopen(request,None,5).read())
     except urllib2.URLError, e:
       print ("URLError: Cannot load image:", e.reason)
       print ("Resource: {0}".format(self.img_filename))
       print ("Username: {0}".format(self.username))
-      #print ("Password: {0}".format(self.password))
       print ("Password: (Hidden)")
       print (" ")
-      f = pygame.image.load('/etc/weid/oops.png')
+      if self.show_errors:
+        f = pygame.image.load(error_image)
     except urllib2.HTTPError, e:
       print ("HTTPError: Cannot load image:", e.code)
       print ("Resource: {0}".format(self.img_filename))
       print ("Username: {0}".format(self.username))
       print ("Password: (Hidden)")
-      #print ("Password: {0}".format(self.password))
       print (" ")
-      f = pygame.image.load('/etc/weid/oops.png')
+      if self.show_errors:
+        f = pygame.image.load(error_image)
     except:
       print ("Unknown error loading image")
       print ("Resource: {0}".format(self.img_filename))
       print ("Username: {0}".format(self.username))
       print ("Password: (Hidden)")
-      #print ("Password: {0}".format(self.password))
       print (" ")
-      f = pygame.image.load('/etc/weid/oops.png')
+      if self.show_errors:
+        f = pygame.image.load(error_image)
     return(f)
   
   def blitter(self, draw_box):
@@ -146,8 +147,7 @@ def _worker(i, mycamera, ns):
     f = ns.f
     f[i] = image
     ns.f = f
-    #print ("Worker %d" % i)
-    time.sleep(0.2)
+    time.sleep(mycamera.sleep)
   # Exit here.
 
 if __name__ == '__main__':
@@ -168,6 +168,9 @@ if __name__ == '__main__':
   cameras_scale = []
   cameras_scale_x = []
   cameras_scale_y = []
+  cameras_enabled = []
+  cameras_sleep = []
+  cameras_show_errors = []
   for i in camera_names:
     cameras.append(str(cameras_config[i]['URL']))
     cameras_x.append(int(cameras_config[i]['X_Position']))
@@ -175,12 +178,16 @@ if __name__ == '__main__':
     cameras_authentication.append(bool(str2bool(cameras_config[i]['Authentication'])))
     cameras_user.append(str(cameras_config[i]['Username']))
     cameras_password.append(str(cameras_config[i]['Password']))
-    cameras_scale.append(str2bool(cameras_config[i]['Scaled']))
+    cameras_scale.append(bool(str2bool(cameras_config[i]['Scaled'])))
     cameras_scale_x.append(int(cameras_config[i]['X_Scale']))
     cameras_scale_y.append(int(cameras_config[i]['Y_Scale']))
+    cameras_enabled.append(bool(str2bool(cameras_config[i]['Enabled'])))
+    cameras_sleep.append(float(cameras_config[i]['Sleep']))
+    cameras_show_errors.append(bool(str2bool(cameras_config[i]['Show_Errors'])))
   # Variables used for camera selection and manipulation
   selected = 0 # Current camera bein manipulated
   edit_mode = 0
+
   clock = pygame.time.Clock()
   state = 1
   BG_COLOR = 1
@@ -191,6 +198,7 @@ if __name__ == '__main__':
   # Date / Time config
   if options['Time']['Enabled']:
     time_font = pygame.font.Font(options['Time']['Font'], int(options['Time']['Font_Size']))
+  error_image = options['Defaults']['Error_Image']
   # Are we running under X?
   disp_no = os.getenv('DISPLAY')
   if disp_no:
@@ -231,16 +239,17 @@ if __name__ == '__main__':
       cameras_scale_x[i],
       cameras_scale_y[i],
       cameras_x[i],
-      cameras_y[i]))
-
+      cameras_y[i],
+      cameras_enabled[i],
+      cameras_sleep[i],
+      cameras_show_errors[i]))
+      
     pool.apply_async(_worker, args = (i,camera_url[i],ns,))
   
   print ("Entering main loop...")
   screen.fill(BG_COLOR)
   time.sleep(2)
   while True:
-  # No more than 60 frames / second. (2 frame now)
-    #time_passed = clock.tick(2)
     for event in pygame.event.get() :
       if event.type == pygame.QUIT :
         print ("Quitting.")
@@ -251,7 +260,7 @@ if __name__ == '__main__':
         sys.exit()
       elif event.type == pygame.KEYUP : 
         if event.key == pygame.K_ESCAPE or event.key == pygame.K_q :
-          print ("Escape.")
+          print ("Exiting.")
           ns.is_running = False
           pool.close()
           pool.join()
@@ -284,7 +293,7 @@ if __name__ == '__main__':
       draw_box = 0
       if counter == selected and edit_mode == 1:
         draw_box = 1
-      i.update(counter,time_passed,ns.f)
+      i.update(counter,ns.f)
       i.blitter(draw_box)
     # Tagline
     if options['Tagline']['Enabled']:

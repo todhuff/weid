@@ -45,6 +45,68 @@ change (which should happen rarely).
 ## Configuring
 Use the source, Luke!
 
+In addition, the following information may be helpful.
+Camera config sections follow this format:
+
+```
+[CAMERA NAME]
+URL = 'STRING'
+Authentication = BOOL
+Username = 'STRING'
+Password = 'STRING'
+X_Position = INT
+Y_Position = INT
+Scaled = BOOL
+X_Scale = INT
+Y_Scale = INT
+Enabled = BOOL
+Sleep = INT
+Show_Errors = BOOL
+```
+
+Other config sections are as follows (And should probably not be changed
+unless you know what you're doing, and have a good reason):
+
+```
+[Time]
+# Format is a standard datetime() format string
+Format = "%a, %b %d, %Y - %I:%M %p"
+# Change the font to soemthing else if you don't want to install the Droid
+# font.
+Font = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
+Font_Size = 36
+X_Position = 20
+Y_Position = 720
+# Very light grey, very visible.
+Colour = 200, 200, 200
+# If set to false, don't bother displaying the time.
+Enabled = True
+
+[Tagline]
+# The default is a little bit of frippery.
+Format = "Weid - Room 101 Software"
+# Change the font to soemthing else if you don't want to install the Droid
+# font.
+Font = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
+# Very small, almost invisible.
+Font_Size = 8
+X_Position = 1
+Y_Position = 1
+# Extremely dark grey; difficult to notice.
+Colour = 35, 35, 35
+# If set to false, don't bother displaying the tagline.
+Enabled = True
+
+[Defaults]
+# Set to whatever you like; I use NTSC colourbars. The image will be
+# auto-adjusted and auto-scaled as needed.
+Error_Image="/etc/weid/oops.png"
+```
+
+If you don't want to install the droid font for some reason, Time & Tagline
+would be the sections to change (Setting 'Enabled' to 'False' is not enough).
+
+
 ## Issues
 If you have any issues, please log them at https://github.com/todhuff/weid/issues
 

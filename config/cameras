@@ -12,6 +12,8 @@ Y_Position = 180
 Scaled = False
 X_Scale = 0
 Y_Scale = 0
+Enabled = True
+Sleep = 1
 
 [MNDOT C650]
 # MN Department of Transportation
@@ -24,6 +26,8 @@ Y_Position = 180
 Scaled = False
 X_Scale = 0
 Y_Scale = 0
+Enabled = True
+Sleep = 1.3
 
 [MNDOT C054]
 # MN Department of Transportation
@@ -36,6 +40,8 @@ Y_Position = 180
 Scaled = False
 X_Scale = 0
 Y_Scale = 0
+Enabled = True
+Sleep = 0.7
 
 [MN Power Duluth LakeCam]
 #Minnesota Power hosts this cam
@@ -49,3 +55,5 @@ Y_Position = 540
 Scaled = True
 X_Scale = 320
 Y_Scale = 240
+Enabled = True
+Sleep = 5.502
