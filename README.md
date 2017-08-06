@@ -1,12 +1,12 @@
-#weid
+# weid
 A simple program to display security cameras, written in python.
 
 ## Depends:
-Python 2.x, python-configobj, fonts-droid.
+Python 2.x, python-configobj, python-pygame, fonts-droid.
 
 On the Pi, you can do this:
 ```
-sudo aptitude install python-configobj fonts-droid 
+sudo aptitude install python-pygame python-configobj fonts-droid 
 ```
 ## Overview
 Weid is a relatively simple program to display IP cameras.
@@ -18,7 +18,7 @@ The code is ugly. I didn't know python when I started, but pygame looked
 like it had (almost) everything I needed, so I ran with it. This is the result.
 
 When running the program directly from the console (without X), you must
-be root.
+be root, or a user with access to the screen.
 
 Running under X requires no special permissions, though you
 will need at least read access to /etc/weid/ (and any files therein).
@@ -71,7 +71,7 @@ unless you know what you're doing, and have a good reason):
 [Time]
 # Format is a standard datetime() format string
 Format = "%a, %b %d, %Y - %I:%M %p"
-# Change the font to soemthing else if you don't want to install the Droid
+# Change the font to something else if you don't want to install the Droid
 # font.
 Font = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
 Font_Size = 36
@@ -85,7 +85,7 @@ Enabled = True
 [Tagline]
 # The default is a little bit of frippery.
 Format = "Weid - Room 101 Software"
-# Change the font to soemthing else if you don't want to install the Droid
+# Change the font to something else if you don't want to install the Droid
 # font.
 Font = "/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf"
 # Very small, almost invisible.

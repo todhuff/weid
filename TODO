@@ -3,3 +3,5 @@ o Merge cameras & options into same config
 o Allow saving of cameras / options
 o Add versioning to config files
 o Auto-update config files, adding sane defaults when possible
+o HTTP server - serve still shots of current screen, or of individual feeds,
+  or display a list of feeds available
